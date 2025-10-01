@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vault</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Background animation */
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6e7f, #bfe9ff);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      padding: 2rem;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Vault container */
+    .vault-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      width: 600px;
+      color: #fff;
+    }
+
+    .vault-card h1, .vault-card h2 {
+      margin-bottom: 1rem;
+    }
+
+    /* Accordion styles */
+    .accordion-button {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      transition: 0.4s;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .accordion-button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .accordion-content {
+      padding: 0 18px;
+      background-color: rgba(255, 255, 255, 0.05);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .vault-card a {
+      color: #ffd369;
+      text-decoration: none;
+      font-weight: bold;
+      float: right;
+    }
+    .vault-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Form styling */
+    form {
+      margin-bottom: 2rem;
+    }
+    form input {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      transition: box-shadow 0.3s;
+    }
+    form input:focus {
+      box-shadow: 0 0 8px rgba(255,255,255,0.7);
+    }
+
+    .btn {
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0.5rem 0.2rem;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn-generate {
+      background: #38ef7d;
+      color: #fff;
+    }
+    .btn-generate:hover {
+      background: #28c76f;
+      transform: translateY(-2px);
+    }
+
+    .btn-save {
+      background: #ff6e7f;
+      color: #fff;
+    }
+    .btn-save:hover {
+      background: #ff3c54;
+      transform: translateY(-2px);
+    }
+
+    /* Credential list */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0.5rem 0;
+      padding: 0.8rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    ul li:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    ul button {
+      background: #ffd369;
+      border: none;
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.3s;
+      margin-left: 0.5rem; /* Add some space between buttons */
+    }
+    ul button:hover {
+      background: #ffb347;
+      transform: translateY(-2px);
+    }
+
+    .btn-delete {
+      background: #ff4757; /* Red color for delete button */
+      color: #fff;
+    }
+
+    .btn-delete:hover {
+      background: #e84118;
+    }
+
+    .btn-logout {
+    background: #ff4757;
+    color: #fff;
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    float: right;
+    }
+
+    .btn-logout:hover {
+    background: #e84118;
+    transform: translateY(-2px);
+    }
+
+    .password-options {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .password-options label {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .password-options select {
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .password-options select option {
+      background-color: #2a5298; /* Darker background for options */
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="vault-card">
+    <h1>Your Vault {% if username %}({{ username }}){% endif %}</h1>
+
+    <button class="accordion-button">Add Credential</button>
+    <div class="accordion-content">
+      <form method="POST" action="/create_credential">
+        <input name="site" placeholder="Site" required><br>
+        <input name="site_username" placeholder="Username" required><br>
+        <input id="site_password" name="site_password" placeholder="Password" required><br>
+        <div class="password-options">
+          <label for="password_level">Level:</label>
+          <select id="password_level">
+            <option value="1">Level 1 (No Caps, No Nums)</option>
+            <option value="2">Level 2 (Caps, Nums)</option>
+            <option value="3" selected>Level 3 (Caps, Nums, Symbols)</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-generate" onclick="generate()">Generate</button>
+        <button type="submit" class="btn btn-save">Save</button>
+      </form>
+    </div>
+
+    <button class="accordion-button">Saved Credentials</button>
+    <div class="accordion-content">
+      <ul>
+        {% for item in items %}
+        <li>
+          {{item['site']}} ({{item['site_username']}})
+          <button onclick="reveal({{item['id']}})">Reveal</button>
+          <button onclick="confirmDelete({{item['id']}})" class="btn-delete">Delete</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <form action="/logout" method="GET" style="display:inline;">
+        <button type="submit" class="btn btn-logout">Logout</button>
+    </form>
+  </div>
+
+  <script>
+    async function generate() {
+      const passwordLevel = document.getElementById('password_level').value;
+      const res = await fetch(`/generate_password?level=${passwordLevel}`);
+      const j = await res.json();
+      document.getElementById('site_password').value = j.password;
+    }
+
+    async function reveal(id) {
+      const res = await fetch(`/credential/${id}`);
+      const j = await res.json();
+      alert(`Site: ${j.site}\nUser: ${j.site_username}\nPassword: ${j.site_password}`);
+      navigator.clipboard.writeText(j.site_password);
+    }
+
+    async function confirmDelete(id) {
+      if (confirm("Are you sure you want to delete this credential?")) {
+        const res = await fetch(`/delete_credential/${id}`, { method: 'POST' });
+        if (res.ok) {
+          window.location.reload(); // Reload the page to reflect the deletion
+        } else {
+          alert("Failed to delete credential.");
+        }
+      }
+    }
+
+    // Accordion functionality
+    var acc = document.getElementsByClassName("accordion-button");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

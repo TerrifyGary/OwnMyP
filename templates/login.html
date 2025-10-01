@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Background animation */
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6e7f, #bfe9ff);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Login card */
+    .login-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .login-card h1 {
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    /* Inputs */
+    .login-card input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      transition: box-shadow 0.3s;
+    }
+
+    .login-card input:focus {
+      box-shadow: 0 0 8px rgba(255,255,255,0.7);
+    }
+
+    /* Button */
+    .login-card button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background: #ff6e7f;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .login-card button:hover {
+      background: #70ff3c;
+      transform: translateY(-2px);
+    }
+
+    /* Register link */
+    .login-card a {
+      display: block;
+      margin-top: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .login-card a:hover {
+      color: #ffd369;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h1>Login</h1>
+    <form method="POST">
+      <input name="username" placeholder="Username" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+    </form>
+    <a href="/register">Register</a>
+  </div>
+</body>
+</html>

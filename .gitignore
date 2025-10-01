@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+.venv/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# IDEs and other
+.vscode/
+.idea/
+.DS_Store
+
+# ngrok.txt
+ngrok.txt
+
