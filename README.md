@@ -1,6 +1,6 @@
-# OwnNote - A Secure Password Vault
+# OwnMyP - A Secure Password Vault
 
-OwnNote is a Flask-based web application designed to securely store and manage your online credentials. It provides a user-friendly interface for registering, logging in, adding new credentials, viewing existing ones, and generating strong, random passwords.
+OwnMyP is a Flask-based web application designed to securely store and manage your online credentials. It provides a user-friendly interface for registering, logging in, adding new credentials, viewing existing ones, and generating strong, random passwords.
 
 ## Features
 
