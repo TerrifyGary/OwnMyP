@@ -220,7 +220,7 @@
 </head>
 <body>
   <div class="vault-card">
-    <h1>Your Vault {% if username %}({{ username }}){% endif %}</h1>
+    <h1>{% if username %} {{ username }} {% endif %}</h1>
 
     <button class="accordion-button">Add Credential</button>
     <div class="accordion-content">

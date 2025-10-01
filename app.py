@@ -66,8 +66,9 @@ def vault():
     if 'user_id' not in session: return redirect(url_for('login'))
     conn = get_db()
     rows = conn.execute("SELECT id, site, site_username FROM credentials WHERE user_id=?", (session['user_id'],)).fetchall()
+    username = conn.execute("SELECT username FROM users WHERE id=?", (session['user_id'],)).fetchone()['username']
     conn.close()
-    return render_template('vault.html', items=rows)
+    return render_template('vault.html', items=rows, username=username)
 
 # Add credential
 @app.route('/create_credential', methods=['POST'])
