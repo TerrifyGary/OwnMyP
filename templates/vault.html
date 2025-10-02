@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vault</title>
   <style>
     /* Reset */
@@ -214,6 +215,49 @@
     .password-options select option {
       background-color: #2a5298; /* Darker background for options */
       color: #fff;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .vault-card {
+        width: 100%;
+        padding: 1.5rem;
+      }
+
+      .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .password-options {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .password-options select {
+        width: 100%;
+      }
+
+      ul li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      ul li button {
+        margin-top: 0.5rem;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .btn-logout {
+        float: none;
+        width: 100%;
+        margin-top: 1rem;
+      }
     }
 
   </style>
